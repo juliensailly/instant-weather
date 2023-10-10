@@ -139,6 +139,14 @@ function displayCitiesGuesses(citiesGuesses, isNoCitiesFound) {
  * @return {void}
  */
 function cityChoiceMade(city) {
+  if (localStorage.getItem("pinnedCity") != null) {
+    if (city.code == JSON.parse(localStorage.getItem("pinnedCity")).code) {
+      document.getElementById("pinButton").classList.add("pinned");
+    } else {
+      document.getElementById("pinButton").classList.remove("pinned");
+    }
+  }
+  
   currentCity = city;
   searchInput.value = city.nom;
   let cityGuesses = document.getElementsByClassName("cityGuess");
@@ -318,9 +326,8 @@ function pinCity() {
     localStorage.removeItem("pinnedCity");
   } else {
     document.getElementById("pinButton").classList.add("pinned");
-    console.log(currentCity);
+    localStorage.setItem("pinnedCity", JSON.stringify(currentCity));
   }
-  localStorage.setItem("pinnedCity", JSON.stringify(currentCity));
 }
 
 /**
@@ -602,7 +609,6 @@ function onPageLoad() {
   if (localStorage.getItem("pinnedCity") != null) {
     currentCity = JSON.parse(localStorage.getItem("pinnedCity"));
     cityChoiceMade(currentCity);
-    document.getElementById("pinButton").classList.add("pinned");
   }
 }
 

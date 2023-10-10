@@ -226,19 +226,34 @@ div#search-settings.hidden {
 
 /* City name style */
 
+#titleName {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 h4#city-name {
     font-size: 2rem;
     font-weight: 700;
-    margin: 4rem 0 1.5rem 0;
+    margin: 4rem 0.5rem 1.5rem 0;
     text-align: center;
 }
 
 #pinButton {
     cursor: pointer;
+    margin-top: 4.5rem;
+    width: 25px;
+    height: 25px;
+}
+
+#search-container {
+    z-index: 1;
 }
 
 .pinned {
     transform: rotate(45deg);
+    position: relative;
+    z-index: 0;
 }
 
 /* Content style */
