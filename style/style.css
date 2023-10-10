@@ -233,6 +233,14 @@ h4#city-name {
     text-align: center;
 }
 
+#pinButton {
+    cursor: pointer;
+}
+
+.pinned {
+    transform: rotate(45deg);
+}
+
 /* Content style */
 
 .content {
