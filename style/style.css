@@ -328,6 +328,7 @@ div.hourly-forecast div.card {
     background-position: center;
     background-size: cover;
     min-width: 300px;
+    max-width: 840px;
     height: 135px;
 }
 

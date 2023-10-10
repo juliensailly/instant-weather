@@ -140,11 +140,16 @@ function displayCitiesGuesses(citiesGuesses, isNoCitiesFound) {
  */
 function cityChoiceMade(city) {
   if (localStorage.getItem("pinnedCity") != null) {
-    if (city.code == JSON.parse(localStorage.getItem("pinnedCity")).code) {
-      document.getElementById("pinButton").classList.add("pinned");
-    } else {
-      document.getElementById("pinButton").classList.remove("pinned");
+    try {
+      if (city.code == JSON.parse(localStorage.getItem("pinnedCity")).code) {
+        document.getElementById("pinButton").classList.add("pinned");
+      } else {
+        document.getElementById("pinButton").classList.remove("pinned");
+      }
+    } catch (error) {
+      localStorage.removeItem("pinnedCity");
     }
+    
   }
   
   currentCity = city;
@@ -590,7 +595,12 @@ function onPageLoad() {
   if (localStorage.getItem("settings") === null) {
     localStorage.setItem("settings", JSON.stringify(settings));
   } else {
-    settings = JSON.parse(localStorage.getItem("settings"));
+    try {
+      settings = JSON.parse(localStorage.getItem("settings"));
+    } catch (error) {
+      localStorage.removeItem("settings");
+      localStorage.setItem("settings", JSON.stringify(settings));
+    }
   }
 
   forecastDurationInput.value = settings.forecastDuration;
@@ -607,8 +617,12 @@ function onPageLoad() {
 
   // Handling pinned city stored in local storage
   if (localStorage.getItem("pinnedCity") != null) {
-    currentCity = JSON.parse(localStorage.getItem("pinnedCity"));
-    cityChoiceMade(currentCity);
+    try {
+      currentCity = JSON.parse(localStorage.getItem("pinnedCity"));
+      cityChoiceMade(currentCity);
+    } catch (error) {
+      localStorage.removeItem("pinnedCity");
+    }
   }
 }
 
