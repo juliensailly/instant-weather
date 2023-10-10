@@ -1,7 +1,7 @@
 # Instant-Weather ☀️
 
 Welcome to Instant-Weather, a web app that provides up-to-date meteorological information for any French city. With Instant-Weather, users can easily access current weather conditions, hourly forecasts, and extended forecasts for the next 7 days. This README will guide you through the features and functionality of the Instant-Weather web application.
-You can access the Instant-Weather web application by following this link: [Instant-Weather Web App](https://alensolopes.github.io/instant-weather).
+You can access the Instant-Weather web application by following this link: [Instant-Weather Web App](https://juliensailly.github.io/instant-weather).
 
 ## Table of Contents
 - [Introduction](#instant-weather-%EF%B8%8F)
@@ -69,7 +69,7 @@ These settings provide users with the flexibility to tailor the displayed inform
 
 ## Contributing 🤝
 
-We welcome contributions to the Instant-Weather project! Whether you want to report issues, suggest enhancements, or submit code changes, please visit our [GitHub repository](https://github.com/alensolopes/instant-weather) to get started. We value the support of the open-source community and look forward to collaborating with you.
+We welcome contributions to the Instant-Weather project! Whether you want to report issues, suggest enhancements, or submit code changes, please visit our [GitHub repository](https://github.com/juliensailly/instant-weather) to get started. We value the support of the open-source community and look forward to collaborating with you.
 
 ## License 📜
 
