@@ -52,7 +52,7 @@ let searchInput = document.getElementById("search"),
    * @name WeatherApiToken
    */
   WeatherApiToken =
-    "6051ed4396ddb33dd0a53913aa5479b93328e2784fab430693ed7cbe340d9557";
+    "b6093a7b0083ef53090cd731a6f2065321419a182c51ed196fdac1c0aed95a52";
 
 /**
  * Function called when the search input is changed
@@ -123,7 +123,6 @@ function displayCitiesGuesses(citiesGuesses, isNoCitiesFound) {
       cityDiv.classList.add("cityGuess");
       cityDiv.innerHTML = city.nom + " (" + city.codesPostaux[0] + ")";
       cityDiv.addEventListener("click", () => {
-        currentCity = city;
         cityChoiceMade(city);
       });
       cityGuessesDiv.appendChild(cityDiv);
@@ -140,6 +139,20 @@ function displayCitiesGuesses(citiesGuesses, isNoCitiesFound) {
  * @return {void}
  */
 function cityChoiceMade(city) {
+  if (localStorage.getItem("pinnedCity") != null) {
+    try {
+      if (city.code == JSON.parse(localStorage.getItem("pinnedCity")).code) {
+        document.getElementById("pinButton").classList.add("pinned");
+      } else {
+        document.getElementById("pinButton").classList.remove("pinned");
+      }
+    } catch (error) {
+      localStorage.removeItem("pinnedCity");
+    }
+    
+  }
+  
+  currentCity = city;
   searchInput.value = city.nom;
   let cityGuesses = document.getElementsByClassName("cityGuess");
   while (cityGuesses[0]) {
@@ -303,6 +316,23 @@ function displayMeteoInfos() {
   displayNDaysForecast();
 
   document.querySelector(".content").classList.add("content-active");
+}
+
+/**
+ * Function that pin the current city
+ * @function pinCity
+ * @return {void}
+ */
+function pinCity() {
+  if (currentCity == null) return;
+
+  if (document.getElementById("pinButton").classList.contains("pinned")) {
+    document.getElementById("pinButton").classList.remove("pinned");
+    localStorage.removeItem("pinnedCity");
+  } else {
+    document.getElementById("pinButton").classList.add("pinned");
+    localStorage.setItem("pinnedCity", JSON.stringify(currentCity));
+  }
 }
 
 /**
@@ -559,12 +589,18 @@ function onPageLoad() {
   document.querySelector(".message button").addEventListener("click", () => {
     document.getElementById("infoMessageContainer").classList.add("hidden");
   });
+  document.getElementById("pinButton").addEventListener("click", () => {pinCity()});
 
   // Handling search settings stored in local storage
   if (localStorage.getItem("settings") === null) {
     localStorage.setItem("settings", JSON.stringify(settings));
   } else {
-    settings = JSON.parse(localStorage.getItem("settings"));
+    try {
+      settings = JSON.parse(localStorage.getItem("settings"));
+    } catch (error) {
+      localStorage.removeItem("settings");
+      localStorage.setItem("settings", JSON.stringify(settings));
+    }
   }
 
   forecastDurationInput.value = settings.forecastDuration;
@@ -578,6 +614,16 @@ function onPageLoad() {
   document.querySelector(".days-forecast h3").textContent =
     settings.forecastDuration +
     (settings.forecastDuration > 1 ? " days forecast" : " day forecast");
+
+  // Handling pinned city stored in local storage
+  if (localStorage.getItem("pinnedCity") != null) {
+    try {
+      currentCity = JSON.parse(localStorage.getItem("pinnedCity"));
+      cityChoiceMade(currentCity);
+    } catch (error) {
+      localStorage.removeItem("pinnedCity");
+    }
+  }
 }
 
 /**
