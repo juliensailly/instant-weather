@@ -143,8 +143,10 @@ function cityChoiceMade(city) {
     try {
       if (city.code == JSON.parse(localStorage.getItem("pinnedCity")).code) {
         document.getElementById("pinButton").classList.add("pinned");
+        document.getElementById("pinButton").src = "assets/img/heart-solid-icon.svg";
       } else {
         document.getElementById("pinButton").classList.remove("pinned");
+        document.getElementById("pinButton").src = "assets/img/heart-regular-icon.svg";
       }
     } catch (error) {
       localStorage.removeItem("pinnedCity");
@@ -328,9 +330,11 @@ function pinCity() {
 
   if (document.getElementById("pinButton").classList.contains("pinned")) {
     document.getElementById("pinButton").classList.remove("pinned");
+    document.getElementById("pinButton").src = "assets/img/heart-regular-icon.svg";
     localStorage.removeItem("pinnedCity");
   } else {
     document.getElementById("pinButton").classList.add("pinned");
+    document.getElementById("pinButton").src = "assets/img/heart-solid-icon.svg";
     localStorage.setItem("pinnedCity", JSON.stringify(currentCity));
   }
 }
